@@ -2,6 +2,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,9 +17,23 @@ public class Main {
             BufferedImage image2 = ImageIO.read(new File(args[1]));
 
             ImageComparator comparator = new ImageComparator(image1, image2);
+            System.out.println(comparator.compare());
+
+            BufferedImage difference = comparator.difference();
+            Path path = Path.of("difference.png");
+
+            if (path.getParent() != null && !Files.exists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+
+            boolean success = ImageIO.write(difference, "png", path.toFile());
+
+            if (!success) {
+                System.err.println("Error writing difference");
+            }
 
         } catch (IOException e) {
-            System.err.println("Error reading image file: " + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         }
     }
 }
