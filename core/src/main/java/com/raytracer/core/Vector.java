@@ -1,3 +1,5 @@
+package com.raytracer.core;
+
 public class Vector {
     public final double x;
     public final double y;
@@ -28,6 +30,6 @@ public class Vector {
     }
 
     public String toString() {
-        return "Vector("+x+","+y+","+z+")";
+        return "com.raytracer.core.Vector("+x+","+y+","+z+")";
     }
 }

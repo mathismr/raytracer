@@ -1,3 +1,5 @@
+package com.raytracer.core;
+
 public class AbstractVec3 {
     public static Vector addition(Vector v1, Vector v2) {
         return new Vector(

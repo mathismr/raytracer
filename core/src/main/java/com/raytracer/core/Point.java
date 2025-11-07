@@ -1,3 +1,5 @@
+package com.raytracer.core;
+
 public class Point {
     private final double x,y,z;
     private Color color;
@@ -37,6 +39,6 @@ public class Point {
     }
 
     public String toString() {
-        return "Point(" + x + "," + y + "," + z + ")";
+        return "com.raytracer.core.Point(" + x + "," + y + "," + z + ")";
     }
 }

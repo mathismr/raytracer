@@ -1,3 +1,5 @@
+package com.raytracer.core;
+
 public record Color(float r, float g, float b) {
     public Color() {
         this(0, 0, 0);
@@ -16,6 +18,6 @@ public record Color(float r, float g, float b) {
     }
 
     public String toString() {
-        return "Color(" + r + "," + g + "," + b + ")";
+        return "com.raytracer.core.Color(" + r + "," + g + "," + b + ")";
     }
 }

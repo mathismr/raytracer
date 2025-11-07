@@ -1,3 +1,7 @@
+import com.raytracer.core.AbstractVec3;
+import com.raytracer.core.Color;
+import com.raytracer.core.Point;
+import com.raytracer.core.Vector;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
