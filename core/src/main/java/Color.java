@@ -1,40 +1,21 @@
-public class Color {
-    private int red;
-    private int green;
-    private int blue;
-
-    public Color(int red, int green, int blue) {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+public record Color(float r, float g, float b) {
+    public Color() {
+        this(0, 0, 0);
     }
-    public Color() {this(0,0,0);}
 
     public boolean equals(Color c) {
-        return c.red == red && c.green == green && c.blue == blue;
+        return this == c;
     }
 
-    public int getRed() {
-        return red;
+    public int toRGB() {
+        int red = (int) Math.round(r * 255);
+        int green = (int) Math.round(g * 255);
+        int blue = (int) Math.round(b * 255);
+
+        return (((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff));
     }
 
-    public int getGreen() {
-        return green;
-    }
-
-    public int getBlue() {
-        return blue;
-    }
-
-    public void setRed(int red) {
-        this.red = red;
-    }
-
-    public void setGreen(int green) {
-        this.green = green;
-    }
-
-    public void setBlue(int blue) {
-        this.blue = blue;
+    public String toString() {
+        return "Color(" + r + "," + g + "," + b + ")";
     }
 }

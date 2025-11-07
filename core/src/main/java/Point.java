@@ -1,8 +1,6 @@
 public class Point {
-    private final double x;
-    private final double y;
-    private final double z;
-    private final Color color;
+    private final double x,y,z;
+    private Color color;
 
     public Point(double x, double y, double z, Color color) {
         this.x = x;
@@ -12,7 +10,10 @@ public class Point {
     }
 
     public boolean equals(Point p) {
-        return p.x == x && p.y == y && p.z == z && color.equals(p.color);
+        return Double.compare(p.x, x) == 0
+            && Double.compare(p.y, y) == 0
+            && Double.compare(p.z, z) == 0
+            && color.equals(p.color);
     }
 
     public double getX() {
@@ -29,5 +30,13 @@ public class Point {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public String toString() {
+        return "Point(" + x + "," + y + "," + z + ")";
     }
 }

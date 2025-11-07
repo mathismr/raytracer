@@ -10,7 +10,9 @@ public class Vector {
     }
 
     public boolean equals(Vector v) {
-        return v.x == x && v.y == y && v.z == z;
+        return Double.compare(v.x, x) == 0
+            && Double.compare(v.y, y) == 0
+            && Double.compare(v.z, z) == 0;
     }
 
     public double getX() {
@@ -23,5 +25,9 @@ public class Vector {
 
     public double getZ() {
         return z;
+    }
+
+    public String toString() {
+        return "Vector("+x+","+y+","+z+")";
     }
 }
