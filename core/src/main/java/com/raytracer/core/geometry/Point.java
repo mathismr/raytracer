@@ -1,4 +1,6 @@
-package com.raytracer.core;
+package com.raytracer.core.geometry;
+
+import com.raytracer.core.imaging.Color;
 
 public class Point {
     private final double x,y,z;
@@ -39,6 +41,6 @@ public class Point {
     }
 
     public String toString() {
-        return "com.raytracer.core.Point(" + x + "," + y + "," + z + ")";
+        return "com.raytracer.core.geometry.Point(" + x + "," + y + "," + z + ")";
     }
 }

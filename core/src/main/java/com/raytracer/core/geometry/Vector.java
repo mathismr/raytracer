@@ -1,4 +1,4 @@
-package com.raytracer.core;
+package com.raytracer.core.geometry;
 
 public class Vector {
     public final double x;
@@ -30,6 +30,6 @@ public class Vector {
     }
 
     public String toString() {
-        return "com.raytracer.core.Vector("+x+","+y+","+z+")";
+        return "com.raytracer.core.geometry.Vector("+x+","+y+","+z+")";
     }
 }

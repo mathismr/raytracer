@@ -1,6 +1,6 @@
-package com.raytracer.core;
+package com.raytracer.core.imaging;
 
-public record Color(float r, float g, float b) {
+public record Color(double r, double g, double b) {
     public Color() {
         this(0, 0, 0);
     }
@@ -18,6 +18,11 @@ public record Color(float r, float g, float b) {
     }
 
     public String toString() {
-        return "com.raytracer.core.Color(" + r + "," + g + "," + b + ")";
+        return "com.raytracer.core.imaging.Color(" + r + "," + g + "," + b + ")";
+    }
+    public boolean validateObjectColor(Color c) {
+        return r + c.r <= 1
+            && g + c.g <= 1
+            && b + c.b <= 1;
     }
 }

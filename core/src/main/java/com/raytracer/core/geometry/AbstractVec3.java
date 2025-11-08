@@ -1,4 +1,4 @@
-package com.raytracer.core;
+package com.raytracer.core.geometry;
 
 public class AbstractVec3 {
     public static Vector addition(Vector v1, Vector v2) {
