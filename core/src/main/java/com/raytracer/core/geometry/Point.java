@@ -2,14 +2,11 @@ package com.raytracer.core.geometry;
 
 import com.raytracer.core.imaging.Color;
 
-public class Point {
-    private final double x,y,z;
+public class Point extends AbstractVec3 {
     private Color color;
 
     public Point(double x, double y, double z, Color color) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         this.color = color;
     }
 
@@ -20,16 +17,26 @@ public class Point {
             && color.equals(p.color);
     }
 
-    public double getX() {
-        return x;
+    @Override
+    public AbstractVec3 addition(AbstractVec3 obj) {
+        Vector v = (Vector) obj;
+        return new Point(x + v.getX(), y + v.getY(), z + v.getZ(), getColor());
     }
 
-    public double getY() {
-        return y;
+    @Override
+    public AbstractVec3 subtraction(AbstractVec3 obj) {
+        if (obj instanceof Vector v) {
+            return new Point(x - v.getX(), y - v.getY(), z - v.getZ(), new Color());
+        } else if (obj instanceof Point p) {
+            return new Vector(x - p.getX(), y - p.getY(), z - p.getZ());
+        } else {
+            throw new UnsupportedOperationException("subtraction() parameter must be instanceof Vector or Point");
+        }
     }
 
-    public double getZ() {
-        return z;
+    @Override
+    public AbstractVec3 scalarMultiplication(double d) {
+        return new Point(getX() * d,getY() * d,getZ() * d,getColor());
     }
 
     public Color getColor() {
