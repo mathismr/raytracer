@@ -71,6 +71,6 @@ public class Vector extends AbstractVec3{
     }
 
     public String toString() {
-        return "com.raytracer.core.geometry.Vector("+x+","+y+","+z+")";
+        return "Vector("+x+","+y+","+z+")";
     }
 }

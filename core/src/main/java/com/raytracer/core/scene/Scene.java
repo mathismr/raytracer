@@ -25,8 +25,8 @@ public class Scene {
     private String output = "output.png";
     private Color ambient = new Color();
 
-    private List<AbstractLight> lights = new ArrayList<>();
-    private List<Shape> shapes = new ArrayList<>();
+    private final List<AbstractLight> lights = new ArrayList<>();
+    private final List<Shape> shapes = new ArrayList<>();
 
     /**
      * Gets the width of the output image in pixels.
@@ -152,5 +152,18 @@ public class Scene {
      */
     public void addShape(Shape shape) {
         this.shapes.add(shape);
+    }
+
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "width=" + width +
+                ", height=" + height +
+                ", camera=" + camera.toString() +
+                ", output='" + output + '\'' +
+                ", ambient=" + ambient.toString() +
+                ", lights=" + lights +
+                ", shapes=" + shapes +
+                '}';
     }
 }

@@ -24,8 +24,9 @@ public class Color extends AbstractVec3 {
     }
 
     public String toString() {
-        return "com.raytracer.core.imaging.Color(" + r + "," + g + "," + b + ")";
+        return "Color(" + r + "," + g + "," + b + ")";
     }
+
     public boolean validateObjectColor(Color c) {
         return r + c.r <= 1
             && g + c.g <= 1

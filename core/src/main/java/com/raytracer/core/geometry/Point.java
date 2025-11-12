@@ -48,6 +48,6 @@ public class Point extends AbstractVec3 {
     }
 
     public String toString() {
-        return "com.raytracer.core.geometry.Point(" + x + "," + y + "," + z + ")";
+        return "Point(" + x + "," + y + "," + z + "," + color.toString() + ")";
     }
 }
