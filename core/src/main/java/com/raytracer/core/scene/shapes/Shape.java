@@ -1,7 +1,11 @@
 package com.raytracer.core.scene.shapes;
 
+import com.raytracer.core.geometry.Intersection;
 import com.raytracer.core.geometry.Point;
 import com.raytracer.core.imaging.Color;
+import com.raytracer.core.scene.Ray;
+
+import java.util.Optional;
 
 public class Shape {
     public Color diffuse;
@@ -20,6 +24,10 @@ public class Shape {
 
     public Color getSpecular() {
         return specular;
+    }
+
+    public Point getCenter() {
+        return point;
     }
 
     public String toString() {

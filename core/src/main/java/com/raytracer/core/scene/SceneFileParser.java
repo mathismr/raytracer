@@ -1,7 +1,6 @@
-package com.raytracer.parser;
+package com.raytracer.core.scene;
 
 import com.raytracer.core.imaging.Color;
-import com.raytracer.core.scene.*;
 import com.raytracer.core.scene.lights.*;
 import com.raytracer.core.scene.shapes.*;
 import com.raytracer.core.geometry.*;
@@ -31,8 +30,7 @@ public class SceneFileParser {
             String[] split_line = line.split(" ");
 
             switch (split_line[0]) {
-                case "#" -> {continue;}
-                case "" -> {continue;}
+                case "#", "" -> {continue;}
                 case "size" -> {
                     scene.setWidth(Integer.parseInt(split_line[1]));
                     scene.setHeight(Integer.parseInt(split_line[2]));
@@ -81,8 +79,7 @@ public class SceneFileParser {
                             new Point(
                                 Double.parseDouble(split_line[1]),
                                 Double.parseDouble(split_line[2]),
-                                Double.parseDouble(split_line[3]),
-                                new Color()
+                                Double.parseDouble(split_line[3])
                             ),
                             Double.parseDouble(split_line[4])
                         ));
@@ -91,28 +88,32 @@ public class SceneFileParser {
                     }
                 }
                 case "directional" -> {
-                    scene.addLight(new DirectionalLight(new Point(
-                        Double.parseDouble(split_line[1]),
-                        Double.parseDouble(split_line[2]),
-                        Double.parseDouble(split_line[3]),
+                    scene.addLight(new DirectionalLight(
+                        new Vector(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
+                        ),
                         new Color(
                             Double.parseDouble(split_line[4]),
                             Double.parseDouble(split_line[5]),
                             Double.parseDouble(split_line[6])
                         )
-                    )));
+                    ));
                 }
                 case "point" -> {
-                    scene.addLight(new PointLight(new Point(
-                        Double.parseDouble(split_line[1]),
-                        Double.parseDouble(split_line[2]),
-                        Double.parseDouble(split_line[3]),
+                    scene.addLight(new PointLight(
+                        new Vector(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
+                        ),
                         new Color(
                             Double.parseDouble(split_line[4]),
                             Double.parseDouble(split_line[5]),
                             Double.parseDouble(split_line[6])
                         )
-                    )));
+                    ));
                 }
                 case "maxverts" -> {
                     verts = new ArrayList<Point>(Integer.parseInt(split_line[1]));
@@ -121,8 +122,7 @@ public class SceneFileParser {
                     try {verts.add(new Point(
                         Double.parseDouble(split_line[1]),
                         Double.parseDouble(split_line[2]),
-                        Double.parseDouble(split_line[3]),
-                        new Color()
+                        Double.parseDouble(split_line[3])
                     ));}
                     catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -163,8 +163,7 @@ public class SceneFileParser {
                             new Point(
                                 Double.parseDouble(split_line[1]),
                                 Double.parseDouble(split_line[2]),
-                                Double.parseDouble(split_line[3]),
-                                new Color()
+                                Double.parseDouble(split_line[3])
                             ),
                             new Vector(
                                 Double.parseDouble(split_line[4]),

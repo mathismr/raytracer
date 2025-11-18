@@ -7,19 +7,19 @@ public class Vector extends AbstractVec3{
     }
 
     @Override
-    public AbstractVec3 addition(AbstractVec3 obj) {
+    public Vector addition(AbstractVec3 obj) {
         Vector v = (Vector) obj;
         return new Vector(getX() + v.getX(), getY() + v.getY(), getZ() + v.getZ());
     }
 
     @Override
-    public AbstractVec3 subtraction(AbstractVec3 obj) {
+    public Vector subtraction(AbstractVec3 obj) {
         Vector v = (Vector) obj;
         return new Vector(getX() - v.getX(), getY() - v.getY(), getZ() - v.getZ());
     }
 
     @Override
-    public AbstractVec3 scalarMultiplication(double d) {
+    public Vector scalarMultiplication(double d) {
         return new Vector(getX() * d, getY() * d, getZ() * d);
     }
 
@@ -30,7 +30,7 @@ public class Vector extends AbstractVec3{
     }
 
     @Override
-    public AbstractVec3 vectorProduct(AbstractVec3 obj) {
+    public Vector vectorProduct(AbstractVec3 obj) {
         Vector v = (Vector) obj;
         return new Vector(
             getY() * v.getZ() - getZ() * v.getY(),
@@ -40,7 +40,7 @@ public class Vector extends AbstractVec3{
     }
 
     @Override
-    public AbstractVec3 schurProduct(AbstractVec3 obj) {
+    public Vector schurProduct(AbstractVec3 obj) {
         Vector v = (Vector) obj;
         return new Vector(
             getX() * v.getX(),
@@ -55,7 +55,7 @@ public class Vector extends AbstractVec3{
     }
 
     @Override
-    public AbstractVec3 normalize() {
+    public Vector normalize() {
         double norm = length();
         if (norm == 0) {
             throw new ArithmeticException("Cannot normalize a zero vector");

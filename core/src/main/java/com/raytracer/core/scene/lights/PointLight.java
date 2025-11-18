@@ -1,9 +1,10 @@
 package com.raytracer.core.scene.lights;
 
-import com.raytracer.core.geometry.Point;
+import com.raytracer.core.geometry.Vector;
+import com.raytracer.core.imaging.Color;
 
 public class PointLight extends AbstractLight {
-   public PointLight(Point p) {
-        super(p);
+   public PointLight(Vector v, Color c) {
+        super(v,c);
     }
 }

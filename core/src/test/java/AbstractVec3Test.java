@@ -11,26 +11,26 @@ class AbstractVec3Test {
     @Test
     void addition() {
         AbstractVec3 addition = new Vector(1.0, 1.0, 1.0).addition(new Vector(1.0, 1.0, 1.0));
-        AbstractVec3 addition2 = new Point(1.0, 1.0, 1.0, new Color()).addition(new Vector(2.0, 2.0, 2.0));
+        AbstractVec3 addition2 = new Point(1.0, 1.0, 1.0).addition(new Vector(2.0, 2.0, 2.0));
         assertEquals(new Vector(2.0,2.0,2.0).toString(), addition.toString());
-        assertEquals(new Point(3.0, 3.0, 3.0, new Color()).toString(), addition2.toString());
+        assertEquals(new Point(3.0, 3.0, 3.0).toString(), addition2.toString());
     }
 
     @Test
     void subtraction() {
-        AbstractVec3 subtract = new Point(1.0, 1.0, 1.0, new Color()).subtraction(new Vector(2.0, 2.0, 2.0));
+        AbstractVec3 subtract = new Point(1.0, 1.0, 1.0).subtraction(new Vector(2.0, 2.0, 2.0));
         AbstractVec3 subtract2 = new Vector(4.0, 4.0, 4.0).subtraction(new Vector(2.0, 2.0, 2.0));
-        AbstractVec3 subtract3 = new Point(6.0, 6.0, 6.0, new Color()).subtraction(new Vector(4.0, 4.0, 4.0));
-        assertEquals(new Point(-1.0, -1.0, -1.0, new Color()).toString(), subtract.toString());
+        AbstractVec3 subtract3 = new Point(6.0, 6.0, 6.0).subtraction(new Vector(4.0, 4.0, 4.0));
+        assertEquals(new Point(-1.0, -1.0, -1.0).toString(), subtract.toString());
         assertEquals(new Vector(2.0, 2.0, 2.0).toString(), subtract2.toString());
-        assertEquals(new Point(2.0, 2.0, 2.0, new Color()).toString(), subtract3.toString());
+        assertEquals(new Point(2.0, 2.0, 2.0).toString(), subtract3.toString());
     }
 
     @Test
     void scalarMultiplication() {
-        AbstractVec3 scalar = new Point(1.0, 1.0, 1.0, new Color()).scalarMultiplication(10.0);
+        AbstractVec3 scalar = new Point(1.0, 1.0, 1.0).scalarMultiplication(10.0);
         AbstractVec3 scalar2 = new Vector(1.0, 1.0, 1.0).scalarMultiplication(12.0);
-        assertEquals(new Point(10.0, 10.0, 10.0, new Color()).toString(), scalar.toString());
+        assertEquals(new Point(10.0, 10.0, 10.0).toString(), scalar.toString());
         assertEquals(new Vector(12.0, 12.0, 12.0).toString(), scalar2.toString());
     }
 

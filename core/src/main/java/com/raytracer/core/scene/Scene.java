@@ -1,11 +1,13 @@
 package com.raytracer.core.scene;
 
+import com.raytracer.core.geometry.Intersection;
 import com.raytracer.core.scene.lights.*;
 import com.raytracer.core.imaging.*;
 import com.raytracer.core.scene.shapes.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a 3D scene containing shapes, lights, camera, and rendering configuration.
@@ -152,6 +154,19 @@ public class Scene {
      */
     public void addShape(Shape shape) {
         this.shapes.add(shape);
+    }
+
+    public List<Intersection> getAllIntersections(Ray ray) {
+        List<Intersection> intersections = new ArrayList<>();
+        for (Shape shape : getShapes()) {
+            Sphere sphere = (Sphere) shape;
+            Optional<Intersection> intersection = sphere.getIntersection(ray);
+            if (intersection.isEmpty()) {
+                continue;
+            }
+            intersections.add(intersection.get());
+        }
+        return intersections;
     }
 
     @Override
