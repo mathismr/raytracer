@@ -1,3 +1,5 @@
+package com.raytracer.imgcompare;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,7 +10,7 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         if (args.length != 2) {
-            System.err.println("Usage: java Main <image1> <image2>");
+            System.err.println("Usage: java com.raytracer.imgcompare.Main <image1> <image2>");
             System.exit(1);
         }
 

@@ -1,3 +1,5 @@
+package com.raytracer.imgcompare;
+
 import java.awt.image.BufferedImage;
 
 public class ImageComparator {

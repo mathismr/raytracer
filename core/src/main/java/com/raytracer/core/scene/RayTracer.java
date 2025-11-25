@@ -27,7 +27,7 @@ public class RayTracer {
 
     public Vector getPixelDirection(int i, int j) {
         double a = (getPixelWidth() * (i - ((double) scene.getWidth() /2) + 0.5)) / ((double) scene.getWidth() /2);
-        double b = (getPixelHeight() * (j - ((double) scene.getHeight() /2) + 0.5)) / ((double) scene.getHeight() /2);
+        double b = (getPixelHeight() * (((double) scene.getHeight() / 2) - j - 0.5)) / ((double) scene.getHeight() / 2);
         Orthonormal o = scene.getCamera().getOrthonormalRef();
         return o.getU().scalarMultiplication(a).addition(o.getV().scalarMultiplication(b)).subtraction(o.getW()).normalize();
     }

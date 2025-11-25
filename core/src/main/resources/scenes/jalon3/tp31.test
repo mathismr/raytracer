@@ -5,4 +5,4 @@ ambient 1 0 0
 diffuse 1 0 0
 specular 0 0 0
 
-sphere .6 -1 0 .5
+sphere 0 0 0 1

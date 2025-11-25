@@ -89,29 +89,29 @@ public class SceneFileParser {
                 }
                 case "directional" -> {
                     scene.addLight(new DirectionalLight(
-                        new Vector(
-                            Double.parseDouble(split_line[1]),
-                            Double.parseDouble(split_line[2]),
-                            Double.parseDouble(split_line[3])
-                        ),
                         new Color(
                             Double.parseDouble(split_line[4]),
                             Double.parseDouble(split_line[5]),
                             Double.parseDouble(split_line[6])
+                        ),
+                        new Vector(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
                         )
                     ));
                 }
                 case "point" -> {
                     scene.addLight(new PointLight(
-                        new Vector(
-                            Double.parseDouble(split_line[1]),
-                            Double.parseDouble(split_line[2]),
-                            Double.parseDouble(split_line[3])
-                        ),
                         new Color(
                             Double.parseDouble(split_line[4]),
                             Double.parseDouble(split_line[5]),
                             Double.parseDouble(split_line[6])
+                        ),
+                        new Point(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
                         )
                     ));
                 }

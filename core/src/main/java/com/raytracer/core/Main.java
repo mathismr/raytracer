@@ -14,7 +14,7 @@ import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        Scene scene = new SceneFileParser("D:\\DATEIN AB 10-2020\\! ! COURS\\IMT\\CI1\\raytracer\\core\\src\\main\\resources\\scenes\\jalon3\\tp31.test").parse();
+        Scene scene = new SceneFileParser("core/src/main/resources/scenes/jalon4/tp45.test").parse();
 
         RayTracer rayTracer = new RayTracer(scene);
         Frame frame = new Frame(rayTracer);

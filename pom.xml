@@ -18,7 +18,6 @@
     <modules>
         <module>imgcompare</module>
         <module>core</module>
-        <module>parser</module>
     </modules>
     <dependencies>
         <dependency>

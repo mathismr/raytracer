@@ -4,15 +4,17 @@ import com.raytracer.core.geometry.Vector;
 import com.raytracer.core.imaging.Color;
 
 public abstract class AbstractLight {
-    protected Vector v;
     protected Color c;
 
-    public AbstractLight(Vector v, Color c) {
-        this.v = v;
+    public AbstractLight(Color c) {
         this.c = c;
     }
 
     public String toString() {
-        return "AbstractLight(" + v.toString() + "," + c.toString() + ")";
+        return "AbstractLight(" + c.toString() + ")";
+    }
+
+    public Color getColor() {
+        return c;
     }
 }

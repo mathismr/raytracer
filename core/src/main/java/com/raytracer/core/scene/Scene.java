@@ -144,7 +144,7 @@ public class Scene {
      * @return the list of shapes
      */
     public List<Shape> getShapes() {
-        return shapes;
+        return shapes.reversed();
     }
 
     /**
