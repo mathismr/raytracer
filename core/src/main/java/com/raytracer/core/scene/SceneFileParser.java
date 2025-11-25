@@ -11,14 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A parser for scene description files used in rendering applications.
+ * This class reads a file and constructs a {@link Scene} object based on the specified parameters.
+ * The scene file specifies scene dimensions, output file, camera configuration, lighting,
+ * and shapes such as spheres, triangles, and planes to be rendered.
+ */
 public class SceneFileParser {
     private final Scanner reader;
 
+    /**
+     * Constructs a new SceneFileParser instance for reading a scene description file.
+     * @param filepath the filepath of the scene description file
+     * @throws FileNotFoundException if the specified file does not exist
+     */
     public SceneFileParser(String filepath) throws FileNotFoundException {
         File scene_file = new File(filepath);
         this.reader = new Scanner(scene_file);
     }
 
+    /**
+     * Parses a scene description file and constructs a Scene object based on the data provided.
+     * The method reads lines of input, interprets specific commands such as definition of size, camera,
+     * lighting, shapes, and other components, and adds them to the resulting Scene object.
+     *
+     * @return a fully populated Scene object constructed from the input data
+     * @throws IllegalArgumentException if invalid or incomplete data is encountered during parsing
+     */
     public Scene parse() {
         Scene scene = new Scene();
         Color diffuse = null;
@@ -181,6 +200,16 @@ public class SceneFileParser {
         return scene;
     }
 
+    /**
+     * Checks if the light configuration, defined by the given diffuse and specular colors, is valid.
+     * The validation is performed by ensuring that the combined color values
+     * of diffuse and specular remain within acceptable bounds.
+     *
+     * @param diffuse the diffuse color component
+     * @param specular the specular color component
+     * @return true if both colors are non-null and their combined values meet the validation criteria,
+     *         false otherwise
+     */
     private boolean isLightVerified(Color diffuse, Color specular) {
         if (diffuse != null && specular != null) {
             return diffuse.validateObjectColor(specular);

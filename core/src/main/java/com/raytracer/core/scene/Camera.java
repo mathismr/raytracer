@@ -1,19 +1,35 @@
 package com.raytracer.core.scene;
 
-import com.raytracer.core.geometry.AbstractVec3;
 import com.raytracer.core.geometry.Orthonormal;
 import com.raytracer.core.geometry.Point;
 import com.raytracer.core.geometry.Vector;
-import com.raytracer.core.imaging.Color;
 
+/**
+ * Represents a virtual camera in the scene.
+ * Defines the observer's position, viewing direction, orientation (up vector), and field of view.
+ */
 public class Camera {
-    private double x,y,z; // position of the camera
-    private double u,v,w; // camera looks at point
-    private double m,n,o; // orientation of camera
-    private double f; // fov
-    private Point lookFrom, lookAt;
-    private Vector up;
+    private final double x,y,z; // position of the camera
+    private final double u,v,w; // camera looks at point
+    private final double m,n,o; // orientation of camera
+    private final double f; // fov
+    private final Point lookFrom, lookAt;
+    private final Vector up;
 
+    /**
+     * Constructs a new Camera with all parameters.
+     *
+     * @param x camera position x
+     * @param y camera position y
+     * @param z camera position z
+     * @param u look-at point x
+     * @param v look-at point y
+     * @param w look-at point z
+     * @param m up vector x component
+     * @param n up vector y component
+     * @param o up vector z component
+     * @param f field of view in degrees
+     */
     public Camera(double x, double y, double z, double u, double v, double w, double m, double n, double o, double f) {
         this.x = x;
         this.y = y;
@@ -46,6 +62,12 @@ public class Camera {
                 '}';
     }
 
+    /**
+     * Computes the orthonormal basis vectors for the camera's coordinate system.
+     * Used to generate rays from the camera into the scene.
+     *
+     * @return the orthonormal basis (u, v, w)
+     */
     public Orthonormal getOrthonormalRef() {
         Vector w = lookFrom.subtraction(lookAt).normalize();
         Vector u = up.normalize().vectorProduct(w).normalize();
@@ -53,6 +75,11 @@ public class Camera {
         return new Orthonormal(u,v,w);
     }
 
+    /**
+     * Converts the Field of View from degrees to radians.
+     *
+     * @return the FOV in radians
+     */
     public double fovToRadians() {
         return (f * Math.PI) / 180.0;
     }

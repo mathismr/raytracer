@@ -7,9 +7,21 @@ import com.raytracer.core.scene.Ray;
 
 import java.util.Optional;
 
+/**
+ * Represents a Sphere shape in the 3D scene.
+ * Defined by a center point and a radius.
+ */
 public class Sphere extends Shape {
-    private double radius;
+    private final double radius;
 
+    /**
+     * Constructs a new Sphere.
+     *
+     * @param diffuse the diffuse color
+     * @param specular the specular color
+     * @param p the center point of the sphere
+     * @param radius the radius of the sphere
+     */
     public Sphere(Color diffuse, Color specular, Point p, double radius) {
         super(diffuse, specular, p);
         this.radius = radius;
@@ -19,6 +31,13 @@ public class Sphere extends Shape {
         return radius;
     }
 
+    /**
+     * Calculates the intersection between a ray and this sphere.
+     * Uses the quadratic formula to solve for intersection points.
+     *
+     * @param ray the ray to test for intersection
+     * @return an Optional containing the intersection details if found, or empty if no intersection
+     */
     public Optional<Intersection> getIntersection(Ray ray) {
         double a = ray.getDirection().scalarProduct(ray.getDirection());
         double b = (ray.getOrigin().subtraction(getCenter()).scalarMultiplication(2.0)).scalarProduct(ray.getDirection());
