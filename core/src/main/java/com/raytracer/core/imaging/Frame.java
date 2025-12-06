@@ -35,7 +35,7 @@ public class Frame {
      *
      * @return the rendered image
      */
-    public BufferedImage render() {
+    public BufferedImage render() throws Exception {
         BufferedImage image = new BufferedImage(scene.getWidth(), scene.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         for (int i = 0; i < scene.getWidth(); i++) {
@@ -47,7 +47,7 @@ public class Frame {
 
                 if (!intersections.isEmpty()) {
                     for (Intersection intersection : intersections) {
-                        if (!scene.getLights().isEmpty()) image.setRGB(i, j, intersection.getColor(scene.getLights()));
+                        if (!scene.getLights().isEmpty()) image.setRGB(i, j, intersection.getColor(scene.getLights(), scene.getAmbient(), scene));
                         else image.setRGB(i, j, scene.getAmbient().toRGB());
                     }
                 }

@@ -37,7 +37,7 @@ class MainTest {
         }
     }
 
-    void loopFiles(List<Path> testFiles) throws IOException {
+    void loopFiles(List<Path> testFiles) throws Exception {
         for (Path testFile : testFiles) {
             Scene scene = new SceneFileParser(testFile.toString()).parse();
 
@@ -56,7 +56,7 @@ class MainTest {
     }
 
     @Test
-    void jalon3() throws IOException {
+    void jalon3() throws Exception {
         String resourcePath = "src/main/resources/scenes/jalon3/";
         List<Path> testFiles = getTestFiles(resourcePath);
 
@@ -64,8 +64,16 @@ class MainTest {
     }
 
     @Test
-    void jalon4() throws IOException {
+    void jalon4() throws Exception {
         String resourcePath = "src/main/resources/scenes/jalon4/";
+        List<Path> testFiles = getTestFiles(resourcePath);
+
+        loopFiles(testFiles);
+    }
+
+    @Test
+    void jalon5() throws Exception {
+        String resourcePath = "src/main/resources/scenes/jalon5/";
         List<Path> testFiles = getTestFiles(resourcePath);
 
         loopFiles(testFiles);

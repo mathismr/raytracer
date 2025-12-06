@@ -156,11 +156,15 @@ public class Scene {
         this.shapes.add(shape);
     }
 
+    /**
+     * Gets all intersections between the given ray and all shapes in the scene.
+     * @param ray the ray to check for intersection
+     * @return a list of all intersections detected
+     */
     public List<Intersection> getAllIntersections(Ray ray) {
         List<Intersection> intersections = new ArrayList<>();
         for (Shape shape : getShapes()) {
-            Sphere sphere = (Sphere) shape;
-            Optional<Intersection> intersection = sphere.getIntersection(ray);
+            Optional<Intersection> intersection = shape.getIntersection(ray);
             if (intersection.isEmpty()) {
                 continue;
             }
@@ -171,7 +175,7 @@ public class Scene {
 
     @Override
     public String toString() {
-        return "Scene{" +
+        return "Scene(" +
                 "width=" + width +
                 ", height=" + height +
                 ", camera=" + camera.toString() +
@@ -179,6 +183,6 @@ public class Scene {
                 ", ambient=" + ambient.toString() +
                 ", lights=" + lights +
                 ", shapes=" + shapes +
-                '}';
+                ")";
     }
 }

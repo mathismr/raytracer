@@ -13,8 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
-        Scene scene = new SceneFileParser("core/src/main/resources/scenes/jalon4/tp45.test").parse();
+    public static void main(String[] args) throws Exception {
+        Scene scene = new SceneFileParser("core/src/main/resources/scenes/jalon5/tp53.test").parse();
 
         RayTracer rayTracer = new RayTracer(scene);
         Frame frame = new Frame(rayTracer);

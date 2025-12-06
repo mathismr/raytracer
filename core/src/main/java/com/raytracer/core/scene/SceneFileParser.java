@@ -40,8 +40,9 @@ public class SceneFileParser {
      */
     public Scene parse() {
         Scene scene = new Scene();
-        Color diffuse = null;
-        Color specular = null;
+        Color diffuse = new Color(0, 0, 0);
+        Color specular = new Color(0, 0, 0);
+        int shininess = 0;
         List<Point> verts = null;
 
         while (reader.hasNextLine()) {
@@ -91,10 +92,11 @@ public class SceneFileParser {
                     );
                 }
                 case "sphere" -> {
-                    if (isLightVerified(diffuse, specular)) {
+                    if (isLightVerified(diffuse, specular, shininess)) {
                         scene.addShape(new Sphere(
                             diffuse,
                             specular,
+                            shininess,
                             new Point(
                                 Double.parseDouble(split_line[1]),
                                 Double.parseDouble(split_line[2]),
@@ -157,10 +159,11 @@ public class SceneFileParser {
                          && idx2 <= verts.size()
                          && idx3 <= verts.size()) {
 
-                            if (isLightVerified(diffuse, specular)) {
+                            if (isLightVerified(diffuse, specular, shininess)) {
                                 scene.addShape(new Triangle(
                                     diffuse,
                                     specular,
+                                    shininess,
                                     verts.get(idx1),
                                     verts.get(idx2),
                                     verts.get(idx3)));
@@ -175,10 +178,11 @@ public class SceneFileParser {
                     }
                 }
                 case "plane" -> {
-                    if (isLightVerified(diffuse, specular)) {
+                    if (isLightVerified(diffuse, specular, shininess)) {
                         scene.addShape(new Plane(
                             diffuse,
                             specular,
+                            shininess,
                             new Point(
                                 Double.parseDouble(split_line[1]),
                                 Double.parseDouble(split_line[2]),
@@ -193,6 +197,9 @@ public class SceneFileParser {
                     } else {
                         throw new IllegalArgumentException("Plane has no specular color nor diffuse color");
                     }
+                }
+                case "shininess" -> {
+                    shininess = Integer.parseInt(split_line[1]);
                 }
                 default -> throw new IllegalArgumentException("Unexpected value: " + split_line[0]);
             }
@@ -210,10 +217,10 @@ public class SceneFileParser {
      * @return true if both colors are non-null and their combined values meet the validation criteria,
      *         false otherwise
      */
-    private boolean isLightVerified(Color diffuse, Color specular) {
-        if (diffuse != null && specular != null) {
+    private boolean isLightVerified(Color diffuse, Color specular, int shininess) {
+        if (diffuse != null && specular != null && shininess >= 0) {
             return diffuse.validateObjectColor(specular);
         }
-        return false;
+        return diffuse != null || specular != null;
     }
 }

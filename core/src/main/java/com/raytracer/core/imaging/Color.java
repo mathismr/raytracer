@@ -67,7 +67,7 @@ public class Color extends AbstractVec3 {
      * @return the resulting mixed color
      */
     @Override
-    public AbstractVec3 addition(AbstractVec3 obj) {
+    public Color addition(AbstractVec3 obj) {
         Color c = (Color) obj;
         return new Color(
             r + c.getX(),
@@ -95,7 +95,7 @@ public class Color extends AbstractVec3 {
      * @return the resulting color
      */
     @Override
-    public AbstractVec3 schurProduct(AbstractVec3 obj) {
+    public Color schurProduct(AbstractVec3 obj) {
         Color c = (Color) obj;
         return new Color(
             r * c.getX(),

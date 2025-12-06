@@ -22,8 +22,8 @@ public class Sphere extends Shape {
      * @param p the center point of the sphere
      * @param radius the radius of the sphere
      */
-    public Sphere(Color diffuse, Color specular, Point p, double radius) {
-        super(diffuse, specular, p);
+    public Sphere(Color diffuse, Color specular, int shininess, Point p, double radius) {
+        super(diffuse, specular, shininess, p);
         this.radius = radius;
     }
 
@@ -38,6 +38,7 @@ public class Sphere extends Shape {
      * @param ray the ray to test for intersection
      * @return an Optional containing the intersection details if found, or empty if no intersection
      */
+    @Override
     public Optional<Intersection> getIntersection(Ray ray) {
         double a = ray.getDirection().scalarProduct(ray.getDirection());
         double b = (ray.getOrigin().subtraction(getCenter()).scalarMultiplication(2.0)).scalarProduct(ray.getDirection());

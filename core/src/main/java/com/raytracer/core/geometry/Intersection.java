@@ -6,6 +6,7 @@ import com.raytracer.core.scene.lights.AbstractLight;
 import com.raytracer.core.scene.lights.DirectionalLight;
 import com.raytracer.core.scene.lights.PointLight;
 import com.raytracer.core.scene.shapes.Shape;
+import com.raytracer.core.scene.Scene;
 
 import java.util.List;
 
@@ -60,40 +61,76 @@ public class Intersection {
      * @param lights the list of light sources in the scene
      * @return the computed RGB color value as an integer
      */
-    public int getColor(List<AbstractLight> lights) {
-        Color finalColor = new Color(0, 0, 0);
+    public int getColor(List<AbstractLight> lights, Color ambient, Scene scene) throws Exception {
+        Color finalColor = ambient;
 
         for (AbstractLight absLight : lights) {
             Color contribution;
+            Vector lightDir;
+            double distanceToLight;
+
             if (absLight instanceof DirectionalLight light) {
-                Vector lightDir = light.getVector().normalize();
-                contribution = computeColor(lightDir, light);
+                lightDir = light.getVector().normalize();
+                distanceToLight = Double.POSITIVE_INFINITY;
             } else {
                 PointLight light = (PointLight) absLight;
-                Vector lightDir = light.getPoint().subtraction(getIntersectionAt()).normalize();
-                contribution = computeColor(lightDir, light);
+                Vector lightVec = light.getPoint().subtraction(getIntersectionAt());
+                distanceToLight = lightVec.length();
+                lightDir = lightVec.normalize();
             }
-            finalColor = (Color) finalColor.addition(contribution);
+
+            // Cast a shadow ray slightly offset from the surface to avoid self-intersection
+            Ray shadowRay = new Ray(getIntersectionAt().addition(lightDir.scalarMultiplication(0.001)), lightDir);
+            boolean isShadowed = false;
+            
+            List<Intersection> shadowIntersections = scene.getAllIntersections(shadowRay);
+            for (Intersection intersection : shadowIntersections) {
+                // If we hit something closer than the light source, we are in shadow
+                if (intersection.getDistance() < distanceToLight) {
+                    isShadowed = true;
+                    break;
+                }
+            }
+
+            if (!isShadowed) {
+                contribution = computeColor(lightDir, absLight);
+                finalColor = (Color) finalColor.addition(contribution);
+            }
         }
 
         return finalColor.toRGB();
     }
 
-    private Color computeColor(Vector lightDir, AbstractLight light) {
+    private Color computeColor(Vector lightDir, AbstractLight light) throws Exception {
+        return computeLambert(lightDir, light).addition(computePhong(lightDir, light));
+    }
+
+    private Color computeLambert(Vector lightDir, AbstractLight light) {
         Vector n = getNormal();
         double intensity = Math.max(n.scalarProduct(lightDir), 0);
 
         Color lightColor = light.getColor();
         Color shapeColor = shape.getDiffuse();
 
-        Color finalColor = null;
+        Color lambertComputedColor = null;
         try {
-            finalColor = (Color) lightColor.schurProduct(shapeColor).scalarMultiplication(intensity);
+            lambertComputedColor = (Color) lightColor.schurProduct(shapeColor).scalarMultiplication(intensity);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return lambertComputedColor;
+    }
 
-        return finalColor;
+    private Color computePhong(Vector lightDir, AbstractLight light) throws Exception {
+        Vector eyeDir = ray.getDirection().scalarMultiplication(-1.0).normalize();
+        Vector h = lightDir.addition(eyeDir).normalize();
+        double lbp = Math.max(h.scalarProduct(getNormal()), 0.0);
+        double specularIntensity = Math.pow(lbp, shape.getShininess());
+        try {
+            return (Color) light.getColor().scalarMultiplication(specularIntensity).schurProduct(shape.getSpecular());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public double getDistance() {

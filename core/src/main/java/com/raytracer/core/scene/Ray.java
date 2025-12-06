@@ -8,8 +8,8 @@ import com.raytracer.core.geometry.Vector;
  * Used as the fundamental tool in ray tracing to test for intersections with scene objects.
  */
 public class Ray {
-    private Point origin;
-    private Vector direction;
+    private final Point origin;
+    private final Vector direction;
 
     /**
      * Constructs a new Ray.
