@@ -31,7 +31,7 @@ public class Plane extends Shape {
         }
         Vector v = point.subtraction(ray.getOrigin());
         double t = v.scalarProduct(normal) / d;
-        return Optional.of(new Intersection(ray,t,this));
+        return Optional.of(new Intersection(ray,t,this, normal));
     }
 
     @Override

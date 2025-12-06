@@ -30,6 +30,10 @@ public class SceneFileParser {
         this.reader = new Scanner(scene_file);
     }
 
+    public SceneFileParser(java.io.InputStream inputStream) {
+        this.reader = new Scanner(inputStream);
+    }
+
     /**
      * Parses a scene description file and constructs a Scene object based on the data provided.
      * The method reads lines of input, interprets specific commands such as definition of size, camera,

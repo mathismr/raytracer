@@ -36,12 +36,13 @@ public class Intersection {
      * @param distance the distance along the ray to the intersection point
      * @param shape the geometric shape that was hit
      */
-    public Intersection(Ray ray, double distance, Shape shape) {
+    public Intersection(Ray ray, double distance, Shape shape, Vector normal) {
         this.ray = ray;
         this.distance = distance;
         this.shape = shape;
         this.intersectionAt = ray.getOrigin().addition(ray.getDirection().scalarMultiplication(distance));
-        this.normal = intersectionAt.subtraction(shape.getCenter()).normalize();
+        //this.normal = intersectionAt.subtraction(shape.getCenter()).normalize();
+        this.normal = normal.normalize();
     }
 
     /**

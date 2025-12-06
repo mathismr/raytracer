@@ -2,6 +2,7 @@ package com.raytracer.core.scene.shapes;
 
 import com.raytracer.core.geometry.Intersection;
 import com.raytracer.core.geometry.Point;
+import com.raytracer.core.geometry.Vector;
 import com.raytracer.core.imaging.Color;
 import com.raytracer.core.scene.Ray;
 
@@ -53,14 +54,20 @@ public class Sphere extends Shape {
             if (t < 0) {
                 return Optional.empty();
             }
-            return Optional.of(new Intersection(ray,t,this));
+            Point intersectionAt = ray.getOrigin().addition(ray.getDirection().scalarMultiplication(t));
+            Vector normal = intersectionAt.subtraction(getCenter()).normalize();
+            return Optional.of(new Intersection(ray,t,this, normal));
         } else {
             double t1 = (-b + Math.sqrt(delta)) / (2 * a);
             double t2 = (-b - Math.sqrt(delta)) / (2 * a);
             if (t2 > 0) {
-                return Optional.of(new Intersection(ray,t2,this));
+                Point intersectionAt = ray.getOrigin().addition(ray.getDirection().scalarMultiplication(t2));
+                Vector normal = intersectionAt.subtraction(getCenter()).normalize();
+                return Optional.of(new Intersection(ray,t2,this,normal));
             } else if (t1 > 0) {
-                return Optional.of(new Intersection(ray,t1,this));
+                Point intersectionAt = ray.getOrigin().addition(ray.getDirection().scalarMultiplication(t1));
+                Vector normal = intersectionAt.subtraction(getCenter()).normalize();
+                return Optional.of(new Intersection(ray,t1,this,normal));
             } else {
                 return Optional.empty();
             }

@@ -40,6 +40,7 @@ class MainTest {
     void loopFiles(List<Path> testFiles) throws Exception {
         for (Path testFile : testFiles) {
             Scene scene = new SceneFileParser(testFile.toString()).parse();
+            System.out.println(scene.toString());
 
             RayTracer rayTracer = new RayTracer(scene);
             Frame frame = new Frame(rayTracer);

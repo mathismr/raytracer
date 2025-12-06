@@ -31,14 +31,16 @@ public class Triangle extends Shape {
         double beta = t.scalarProduct(p) / det;
         double gamma = ray.getDirection().scalarProduct(q) / det;
 
-        if (beta < 0) { return Optional.empty(); }
+        if (beta < 0 || beta > 1) { return Optional.empty(); }
         if (gamma < 0 || beta + gamma > 1) { return Optional.empty(); }
 
         double _t = edge_ca.scalarProduct(q) / det;
 
         if (_t < 1e-9) { return Optional.empty(); }
 
-        return Optional.of(new Intersection(ray,_t,this));
+        Vector normal = edge_ba.vectorProduct(edge_ca).normalize();
+
+        return Optional.of(new Intersection(ray,_t,this, normal));
     }
 
     @Override

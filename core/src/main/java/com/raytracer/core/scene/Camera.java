@@ -48,7 +48,7 @@ public class Camera {
 
     @Override
     public String toString() {
-        return "Camera{" +
+        return "Camera(" +
                 "x=" + x +
                 ", y=" + y +
                 ", z=" + z +
@@ -59,7 +59,7 @@ public class Camera {
                 ", n=" + n +
                 ", o=" + o +
                 ", f=" + f +
-                '}';
+                ")";
     }
 
     /**
