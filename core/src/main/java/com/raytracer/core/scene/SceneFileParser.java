@@ -96,21 +96,21 @@ public class SceneFileParser {
                     );
                 }
                 case "sphere" -> {
-                    if (isLightVerified(diffuse, specular, shininess)) {
-                        scene.addShape(new Sphere(
-                            diffuse,
-                            specular,
-                            shininess,
-                            new Point(
-                                Double.parseDouble(split_line[1]),
-                                Double.parseDouble(split_line[2]),
-                                Double.parseDouble(split_line[3])
-                            ),
-                            Double.parseDouble(split_line[4])
-                        ));
-                    } else {
-                        throw new IllegalArgumentException("Sphere has no specular color nor diffuse color");
+                    if (!isLightVerified(diffuse, specular, shininess)) {
+                        System.err.println("Warning: Sphere has invalid lighting (diffuse + specular > 1).");
                     }
+
+                    scene.addShape(new Sphere(
+                        diffuse,
+                        specular,
+                        shininess,
+                        new Point(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
+                        ),
+                        Double.parseDouble(split_line[4])
+                    ));
                 }
                 case "directional" -> {
                     scene.addLight(new DirectionalLight(
@@ -154,6 +154,9 @@ public class SceneFileParser {
                     }
                 }
                 case "tri" -> {
+                    if (!isLightVerified(diffuse, specular, shininess)) {
+                        System.err.println("Warning: Sphere has invalid lighting (diffuse + specular > 1).");
+                    }
                     if (verts != null ) {
                         int idx1 = Integer.parseInt(split_line[1]);
                         int idx2 = Integer.parseInt(split_line[2]);
@@ -162,18 +165,13 @@ public class SceneFileParser {
                         if (idx1 <= verts.size()
                          && idx2 <= verts.size()
                          && idx3 <= verts.size()) {
-
-                            if (isLightVerified(diffuse, specular, shininess)) {
-                                scene.addShape(new Triangle(
-                                    diffuse,
-                                    specular,
-                                    shininess,
-                                    verts.get(idx1),
-                                    verts.get(idx2),
-                                    verts.get(idx3)));
-                            } else {
-                                throw new IllegalArgumentException("tri has no specular color nor diffuse color");
-                            }
+                            scene.addShape(new Triangle(
+                                diffuse,
+                                specular,
+                                shininess,
+                                verts.get(idx1),
+                                verts.get(idx2),
+                                verts.get(idx3)));
                         } else {
                             throw new IllegalArgumentException("tri has invalid indices");
                         }
@@ -182,25 +180,24 @@ public class SceneFileParser {
                     }
                 }
                 case "plane" -> {
-                    if (isLightVerified(diffuse, specular, shininess)) {
-                        scene.addShape(new Plane(
-                            diffuse,
-                            specular,
-                            shininess,
-                            new Point(
-                                Double.parseDouble(split_line[1]),
-                                Double.parseDouble(split_line[2]),
-                                Double.parseDouble(split_line[3])
-                            ),
-                            new Vector(
-                                Double.parseDouble(split_line[4]),
-                                Double.parseDouble(split_line[5]),
-                                Double.parseDouble(split_line[6])
-                            )
-                        ));
-                    } else {
-                        throw new IllegalArgumentException("Plane has no specular color nor diffuse color");
+                    if (!isLightVerified(diffuse, specular, shininess)) {
+                        System.err.println("Warning: Sphere has invalid lighting (diffuse + specular > 1).");
                     }
+                    scene.addShape(new Plane(
+                        diffuse,
+                        specular,
+                        shininess,
+                        new Point(
+                            Double.parseDouble(split_line[1]),
+                            Double.parseDouble(split_line[2]),
+                            Double.parseDouble(split_line[3])
+                        ),
+                        new Vector(
+                            Double.parseDouble(split_line[4]),
+                            Double.parseDouble(split_line[5]),
+                            Double.parseDouble(split_line[6])
+                        )
+                    ));
                 }
                 case "shininess" -> {
                     shininess = Integer.parseInt(split_line[1]);

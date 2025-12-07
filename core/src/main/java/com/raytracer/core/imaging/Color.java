@@ -41,6 +41,10 @@ public class Color extends AbstractVec3 {
         int green = (int) Math.round(g * 255);
         int blue = (int) Math.round(b * 255);
 
+        red = Math.min(255, Math.max(0, red));
+        green = Math.min(255, Math.max(0, green));
+        blue = Math.min(255, Math.max(0, blue));
+
         return (((red & 0xff) << 16) + ((green & 0xff) << 8) + (blue & 0xff));
     }
 
