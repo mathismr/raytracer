@@ -79,4 +79,12 @@ class MainTest {
 
         loopFiles(testFiles);
     }
+
+    @Test
+    void jalon6() throws Exception {
+        String resourcePath = "src/main/resources/scenes/jalon6/";
+        List<Path> testFiles = getTestFiles(resourcePath);
+
+        loopFiles(testFiles);
+    }
 }

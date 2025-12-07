@@ -80,14 +80,12 @@ public class Intersection {
                 lightDir = lightVec.normalize();
             }
 
-            // Cast a shadow ray slightly offset from the surface to avoid self-intersection
             Ray shadowRay = new Ray(getIntersectionAt().addition(lightDir.scalarMultiplication(0.001)), lightDir);
             boolean isShadowed = false;
-            
+
             List<Intersection> shadowIntersections = scene.getAllIntersections(shadowRay);
             for (Intersection intersection : shadowIntersections) {
-                // If we hit something closer than the light source, we are in shadow
-                if (intersection.getDistance() < distanceToLight) {
+                if (intersection.getDistance() > 0.001 && intersection.getDistance() < distanceToLight) {
                     isShadowed = true;
                     break;
                 }

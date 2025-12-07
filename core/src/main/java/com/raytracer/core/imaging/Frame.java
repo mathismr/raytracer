@@ -46,10 +46,29 @@ public class Frame {
                 List<Intersection> intersections = scene.getAllIntersections(r);
 
                 if (!intersections.isEmpty()) {
+
+                    Intersection closestIntersection = null;
+                    double minDistance = Double.MAX_VALUE;
+
                     for (Intersection intersection : intersections) {
-                        if (!scene.getLights().isEmpty()) image.setRGB(i, j, intersection.getColor(scene.getLights(), scene.getAmbient(), scene));
-                        else image.setRGB(i, j, scene.getAmbient().toRGB());
+                        double dist = intersection.getDistance();
+
+                        if (dist > 0 && dist < minDistance) { // Check that object is in front of camera and closer than previous intersection
+                            minDistance = dist;
+                            closestIntersection = intersection;
+                        }
                     }
+
+                    if (closestIntersection != null) { // If we found a valid intersection, compute its color
+                        if (!scene.getLights().isEmpty()) {
+                            image.setRGB(i, j, closestIntersection.getColor(scene.getLights(), scene.getAmbient(), scene));
+                        } else {
+                            image.setRGB(i, j, scene.getAmbient().toRGB());
+                        }
+                    } else {
+                        image.setRGB(i, j, 0);
+                    }
+
                 }
                 else {
                     image.setRGB(i, j, 0);
