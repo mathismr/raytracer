@@ -65,7 +65,8 @@ public class LivePreview {
                         long start = System.currentTimeMillis();
                         
                         InputStream stream = new ByteArrayInputStream(currentContent.getBytes(StandardCharsets.UTF_8));
-                        Scene scene = new SceneFileParser(stream).parse();
+                        SceneFileParser parser = new SceneFileParser();
+                        Scene scene = parser.parse(stream.toString());
 
                         RayTracer rayTracer = new RayTracer(scene);
                         Frame renderer = new Frame(rayTracer);

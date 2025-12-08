@@ -21,7 +21,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter scene file absolute path:");
         String scenePath = scanner.nextLine();
-        Scene scene = new SceneFileParser(scenePath).parse();
+
+        SceneFileParser parser = new SceneFileParser();
+        Scene scene = parser.parse(scenePath);
         RayTracer rayTracer = new RayTracer(scene);
         Frame frame = new Frame(rayTracer);
 
