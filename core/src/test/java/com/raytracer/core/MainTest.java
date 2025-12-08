@@ -39,7 +39,8 @@ class MainTest {
 
     void loopFiles(List<Path> testFiles) throws Exception {
         for (Path testFile : testFiles) {
-            Scene scene = new SceneFileParser(testFile.toString()).parse();
+            SceneFileParser parser = new SceneFileParser();
+            Scene scene = parser.parse(testFile.toString());
             System.out.println(scene.toString());
 
             RayTracer rayTracer = new RayTracer(scene);
