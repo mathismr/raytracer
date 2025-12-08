@@ -59,12 +59,14 @@ public class Frame {
                         }
                     }
 
-                    if (closestIntersection != null) { // If we found a valid intersection, compute its color
+                    if (closestIntersection != null) {
+                        Color pixelColor;
                         if (!scene.getLights().isEmpty()) {
-                            image.setRGB(i, j, closestIntersection.getColor(scene.getLights(), scene.getAmbient(), scene));
+                            pixelColor = closestIntersection.getColor(scene.getLights(), scene.getAmbient(), scene, scene.getMaxdepth());
                         } else {
-                            image.setRGB(i, j, scene.getAmbient().toRGB());
+                            pixelColor = scene.getAmbient();
                         }
+                        image.setRGB(i, j, pixelColor.toRGB());
                     } else {
                         image.setRGB(i, j, 0);
                     }

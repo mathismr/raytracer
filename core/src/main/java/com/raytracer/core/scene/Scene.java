@@ -30,6 +30,8 @@ public class Scene {
     private final List<AbstractLight> lights = new ArrayList<>();
     private final List<Shape> shapes = new ArrayList<>();
 
+    private int maxdepth = 1;
+
     /**
      * Gets the width of the output image in pixels.
      *
@@ -155,6 +157,18 @@ public class Scene {
     public void addShape(Shape shape) {
         this.shapes.add(shape);
     }
+
+    /**
+     * Gets the maximum ray bounce depth.
+     * @return the maximum ray bounce depth
+     */
+    public int getMaxdepth() { return maxdepth; }
+
+    /**
+     * Sets the maximum ray bounce depth.
+     * @param maxdepth the maximum ray bounce depth
+     */
+    public void setMaxdepth(int maxdepth) { this.maxdepth = maxdepth; }
 
     /**
      * Gets all intersections between the given ray and all shapes in the scene.

@@ -202,6 +202,9 @@ public class SceneFileParser {
                 case "shininess" -> {
                     shininess = Integer.parseInt(split_line[1]);
                 }
+                case "maxdepth" -> {
+                    scene.setMaxdepth(Integer.parseInt(split_line[1]));
+                }
                 default -> throw new IllegalArgumentException("Unexpected value: " + split_line[0]);
             }
         }

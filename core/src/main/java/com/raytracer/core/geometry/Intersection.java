@@ -62,7 +62,7 @@ public class Intersection {
      * @param lights the list of light sources in the scene
      * @return the computed RGB color value as an integer
      */
-    public int getColor(List<AbstractLight> lights, Color ambient, Scene scene) throws Exception {
+    public Color getColor(List<AbstractLight> lights, Color ambient, Scene scene, int depth) throws Exception {
         Color finalColor = ambient;
 
         for (AbstractLight absLight : lights) {
@@ -97,7 +97,36 @@ public class Intersection {
             }
         }
 
-        return finalColor.toRGB();
+        // Réflexion
+        if (depth <= 0 || shape.getSpecular().isBlack()) {
+            return finalColor.clamp();
+        }
+
+        Vector d = ray.getDirection();
+        Vector n = getNormal();
+        Vector minusD = d.scalarMultiplication(-1.0);
+        double dotND = n.scalarProduct(minusD);
+
+        Vector r = d.addition(n.scalarMultiplication(2 * dotND));
+        Ray reflectionRay = new Ray(getIntersectionAt().addition(r.scalarMultiplication(0.001)), r.normalize());
+
+        Intersection closestReflection = null;
+        double minDistance = Double.MAX_VALUE;
+
+        List<Intersection> intersections = scene.getAllIntersections(reflectionRay);
+        for (Intersection i:intersections) {
+            if (i.getDistance() > 0 && i.getDistance() < minDistance) {
+                minDistance = i.getDistance();
+                closestReflection = i;
+            }
+        }
+        if (closestReflection != null) {
+            Color reflectedColor = closestReflection.getColor(lights, scene.getAmbient(), scene, depth - 1);
+            Color specularContrib = shape.getSpecular().schurProduct(reflectedColor);
+            finalColor = (Color) finalColor.addition(specularContrib);
+        }
+
+        return finalColor.clamp();
     }
 
     private Color computeColor(Vector lightDir, AbstractLight light) throws Exception {
@@ -130,6 +159,11 @@ public class Intersection {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Color computeReflection(Scene scene, List<AbstractLight> lights, int depth) throws Exception {
+
+        return null;
     }
 
     public double getDistance() {

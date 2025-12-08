@@ -31,6 +31,24 @@ public class Color extends AbstractVec3 {
     public boolean equals(Color c) { return this == c; }
 
     /**
+     * Clamps the color components to the range [0.0, 1.0].
+     * @return the clamped color
+     */
+    public Color clamp() {
+        return new Color(
+            Math.min(1.0, Math.max(0.0, r)),
+            Math.min(1.0, Math.max(0.0, g)),
+            Math.min(1.0, Math.max(0.0, b))
+        );
+    }
+
+    /**
+     * Checks if the color is black (all components equal to 0).
+     * @return true if black, false otherwise
+     */
+    public boolean isBlack() { return r == 0 && g == 0 && b == 0; }
+
+    /**
      * Converts the floating-point color components to a packed 32-bit integer RGB value.
      * Values are clamped and scaled to 0-255.
      *
