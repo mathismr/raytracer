@@ -101,6 +101,7 @@ public class SceneFileParser {
                         break;
                     case "plane":
                         parsePlane(parts);
+                        break;
                     default:
                         throw new IllegalArgumentException("Unknown line in scene file: " + parts[0]);
                 }
